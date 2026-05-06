@@ -2,76 +2,69 @@
 
 ## Scenario
 
-Bạn cần xây dựng một research assistant có thể nhận câu hỏi dài, tìm thông tin, phân tích và viết câu trả lời cuối cùng. Lab yêu cầu so sánh hai cách làm:
+You need a research assistant that can handle long queries, collect information, analyze it,
+and write a final response. The lab compares:
 
-1. **Single-agent baseline**: một agent làm toàn bộ.
-2. **Multi-agent workflow**: Supervisor điều phối Researcher, Analyst, Writer.
+1. **Single-agent baseline**: one agent does everything.
+2. **Multi-agent workflow**: Supervisor orchestrates Researcher, Analyst, Writer.
 
-## Quy tắc quan trọng
+## Important rules
 
-- Không thêm agent nếu không có lý do rõ ràng.
-- Mỗi agent phải có responsibility riêng.
-- Shared state phải đủ rõ để debug.
-- Phải có trace hoặc log cho từng bước.
-- Phải benchmark, không chỉ nhìn output bằng cảm tính.
+- Do not add agents without a clear reason.
+- Keep each agent responsibility distinct.
+- Shared state must be explicit enough for debugging.
+- Keep trace/logs for each step.
+- Benchmark with measurable metrics, not intuition only.
 
 ## Milestone 1: Baseline
 
-File gợi ý:
+Suggested files:
 
 - `src/multi_agent_research_lab/cli.py`
 - `src/multi_agent_research_lab/services/llm_client.py`
 
-TODO(student): thay baseline placeholder bằng một call LLM thật.
+Implementation target: replace baseline placeholder with a real LLM call and fallback.
 
 ## Milestone 2: Supervisor
 
-File gợi ý:
+Suggested files:
 
 - `src/multi_agent_research_lab/agents/supervisor.py`
 - `src/multi_agent_research_lab/graph/workflow.py`
 
-TODO(student): implement routing policy.
-
-Gợi ý câu hỏi thiết kế:
-
-- Khi nào gọi Researcher?
-- Khi nào gọi Analyst?
-- Khi nào gọi Writer?
-- Khi nào stop?
-- Nếu agent fail thì retry hay fallback?
+Implementation target: deterministic routing policy with max-iteration stop condition.
 
 ## Milestone 3: Worker agents
 
-File gợi ý:
+Suggested files:
 
 - `agents/researcher.py`
 - `agents/analyst.py`
 - `agents/writer.py`
 
-TODO(student): implement từng worker.
+Implementation target: each worker writes its own outputs into shared state and trace.
 
-## Milestone 4: Trace và benchmark
+## Milestone 4: Trace and benchmark
 
-File gợi ý:
+Suggested files:
 
 - `observability/tracing.py`
 - `evaluation/benchmark.py`
 - `evaluation/report.py`
 
-Benchmark tối thiểu:
+Minimum benchmark metrics:
 
-| Metric | Cách đo gợi ý |
+| Metric | Suggested measurement |
 |---|---|
 | Latency | wall-clock time |
-| Cost | token usage hoặc provider usage |
-| Quality | rubric 0-10 do peer review |
-| Citation coverage | số claims có source / tổng claims chính |
-| Failure rate | số query fail / tổng query |
+| Cost | token usage or provider usage |
+| Quality | rubric score 0-10 |
+| Citation coverage | sourced claims / total key claims |
+| Failure rate | failed queries / total queries |
 
 ## Exit ticket
 
-Mỗi nhóm trả lời 2 câu:
+Each team should answer:
 
-1. Case nào nên dùng multi-agent? Vì sao?
-2. Case nào không nên dùng multi-agent? Vì sao?
+1. Which cases should use multi-agent workflows? Why?
+2. Which cases should not use multi-agent workflows? Why?
